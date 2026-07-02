@@ -4,30 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Bcar CRM">
 <title>Bcar CRM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --c-bg: #F6F7FB;
-  --c-surface: #FFFFFF;
-  --c-surface2: #F0F1F6;
-  --c-border: rgba(15,17,23,0.08);
-  --c-text: #14151A;
-  --c-muted: #767A8A;
-  --c-accent: #4F6EF7;
-  --c-accent-glow: rgba(79,110,247,0.18);
-  --c-success: #16A34A;
-  --c-success-bg: rgba(22,163,74,0.1);
-  --c-warning: #D97706;
-  --c-warning-bg: rgba(217,119,6,0.1);
-  --c-danger: #DC2626;
-  --c-danger-bg: rgba(220,38,38,0.1);
-  --c-purple: #8B5CF6;
-  --c-purple-bg: rgba(139,92,246,0.1);
-  --c-gray-bg: rgba(15,17,23,0.05);
+  --c-bg: #F6F7FB; --c-surface: #FFFFFF; --c-surface2: #F0F1F6;
+  --c-border: rgba(15,17,23,0.08); --c-text: #14151A; --c-muted: #767A8A;
+  --c-accent: #4F6EF7; --c-accent-glow: rgba(79,110,247,0.18);
+  --c-success: #16A34A; --c-success-bg: rgba(22,163,74,0.1);
+  --c-warning: #D97706; --c-warning-bg: rgba(217,119,6,0.1);
+  --c-danger: #DC2626; --c-danger-bg: rgba(220,38,38,0.1);
+  --c-purple: #8B5CF6; --c-purple-bg: rgba(139,92,246,0.1);
+  --c-green-call: #16A34A; --c-gray-bg: rgba(15,17,23,0.05);
   --r: 16px; --r-sm: 10px; --r-xs: 8px;
   --safe-top: env(safe-area-inset-top, 44px);
   --safe-bottom: env(safe-area-inset-bottom, 24px);
@@ -36,229 +27,153 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-/* ── LOADING ── */
-#loadingScreen {
-  position: fixed; inset: 0; background: var(--c-bg); z-index: 999;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
-}
+/* LOADING */
+#loadingScreen { position: fixed; inset: 0; background: var(--c-bg); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
 .loader-logo { font-size: 52px; animation: bounce 1s ease infinite alternate; }
-@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+@keyframes bounce { from{transform:translateY(0)}to{transform:translateY(-10px)} }
 .loader-bar { width: 160px; height: 3px; background: var(--c-surface2); border-radius: 99px; overflow: hidden; }
 .loader-bar-inner { height: 100%; width: 40%; background: var(--c-accent); border-radius: 99px; animation: loading 1.2s ease infinite; }
-@keyframes loading { 0%{transform:translateX(-100%)} 100%{transform:translateX(400%)} }
-.loader-text { font-size: 14px; color: var(--c-muted); letter-spacing: 0.3px; }
+@keyframes loading { 0%{transform:translateX(-100%)}100%{transform:translateX(400%)} }
+.loader-text { font-size: 14px; color: var(--c-muted); }
 
-/* ── NAVBAR ── */
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(246,247,251,0.88);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  padding-top: var(--safe-top);
-  border-bottom: 1px solid var(--c-border);
-}
+/* NAVBAR */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(246,247,251,0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); padding-top: var(--safe-top); border-bottom: 1px solid var(--c-border); }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
 .nav-brand { display: flex; align-items: center; gap: 10px; }
-.nav-logo { width: 36px; height: 36px; background: var(--c-accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.nav-logo { width: 36px; height: 36px; background: var(--c-accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .nav-title { font-size: 17px; font-weight: 700; letter-spacing: -0.4px; }
 .nav-sub { font-size: 11px; color: var(--c-muted); display: flex; align-items: center; gap: 5px; margin-top: 1px; }
 .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-muted); flex-shrink: 0; }
 .sync-dot.online { background: var(--c-success); box-shadow: 0 0 6px var(--c-success); }
 .sync-dot.syncing { background: var(--c-warning); animation: blink 0.8s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-.btn-add-nav {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--c-accent); color: #fff; border: none;
-  border-radius: 22px; padding: 9px 18px; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: var(--font);
-  box-shadow: 0 4px 16px var(--c-accent-glow);
-  transition: transform 0.1s, opacity 0.1s;
-}
-.btn-add-nav:active { transform: scale(0.95); opacity: 0.85; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+.btn-add-nav { display: flex; align-items: center; gap: 5px; background: var(--c-accent); color: #fff; border: none; border-radius: 22px; padding: 9px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font); box-shadow: 0 4px 14px var(--c-accent-glow); transition: transform 0.1s; }
+.btn-add-nav:active { transform: scale(0.95); }
 
-/* ── MAIN ── */
+/* MAIN */
 .main { padding-top: calc(var(--safe-top) + 68px); padding-bottom: calc(var(--safe-bottom) + 72px); }
 
-/* ── STATS ── */
-.stats-wrap { padding: 16px 16px 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-.stat {
-  background: var(--c-surface); border-radius: var(--r-sm);
-  padding: 12px 8px; text-align: center;
-  border: 1px solid var(--c-border);
-  box-shadow: 0 1px 3px rgba(15,17,23,0.04);
-  position: relative; overflow: hidden;
-}
-.stat::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; }
-.stat.red::before { background: radial-gradient(circle at 50% 0, rgba(239,68,68,0.15), transparent 70%); opacity:1; }
-.stat.yellow::before { background: radial-gradient(circle at 50% 0, rgba(245,158,11,0.15), transparent 70%); opacity:1; }
-.stat.blue::before { background: radial-gradient(circle at 50% 0, rgba(79,110,247,0.15), transparent 70%); opacity:1; }
-.stat.green::before { background: radial-gradient(circle at 50% 0, rgba(34,197,94,0.15), transparent 70%); opacity:1; }
+/* STATS */
+.stats-wrap { padding: 14px 16px 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.stat { background: var(--c-surface); border-radius: var(--r-sm); padding: 12px 6px; text-align: center; border: 1px solid var(--c-border); box-shadow: 0 1px 3px rgba(15,17,23,0.04); position: relative; overflow: hidden; cursor: pointer; transition: transform 0.15s; }
+.stat:active { transform: scale(0.96); }
+.stat::before { content:''; position:absolute; inset:0; opacity:0; }
+.stat.red::before { background: radial-gradient(circle at 50% 0, rgba(220,38,38,0.1), transparent 70%); opacity:1; }
+.stat.yellow::before { background: radial-gradient(circle at 50% 0, rgba(217,119,6,0.1), transparent 70%); opacity:1; }
+.stat.blue::before { background: radial-gradient(circle at 50% 0, rgba(79,110,247,0.1), transparent 70%); opacity:1; }
+.stat.green::before { background: radial-gradient(circle at 50% 0, rgba(22,163,74,0.1), transparent 70%); opacity:1; }
 .stat-num { font-size: 22px; font-weight: 700; position: relative; }
-.stat-num.red { color: var(--c-danger); }
-.stat-num.yellow { color: var(--c-warning); }
-.stat-num.blue { color: var(--c-accent); }
-.stat-num.green { color: var(--c-success); }
+.stat-num.red{color:var(--c-danger)} .stat-num.yellow{color:var(--c-warning)} .stat-num.blue{color:var(--c-accent)} .stat-num.green{color:var(--c-success)}
 .stat-label { font-size: 10px; color: var(--c-muted); margin-top: 3px; line-height: 1.3; position: relative; }
 
-/* ── SEARCH ── */
+/* SEARCH */
 .search-wrap { padding: 12px 16px 0; position: relative; }
-.search-icon { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 15px; pointer-events: none; opacity: 0.5; }
-.search-input {
-  width: 100%; padding: 11px 14px 11px 40px;
-  background: var(--c-surface); border: 1px solid var(--c-border);
-  border-radius: var(--r-sm); color: var(--c-text); font-size: 15px;
-  font-family: var(--font);
-  transition: border-color 0.2s;
-}
+.search-icon { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 15px; pointer-events: none; opacity: 0.45; }
+.search-input { width: 100%; padding: 11px 14px 11px 40px; background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--r-sm); color: var(--c-text); font-size: 15px; font-family: var(--font); transition: border-color 0.2s; box-shadow: 0 1px 3px rgba(15,17,23,0.04); }
 .search-input:focus { outline: none; border-color: var(--c-accent); }
 .search-input::placeholder { color: var(--c-muted); }
 
-/* ── FILTER TABS ── */
+/* FILTERS */
 .filter-scroll { display: flex; gap: 8px; padding: 12px 16px 0; overflow-x: auto; scrollbar-width: none; }
 .filter-scroll::-webkit-scrollbar { display: none; }
-.chip {
-  flex-shrink: 0; font-size: 13px; font-weight: 500; padding: 7px 14px;
-  border-radius: 20px; border: 1px solid var(--c-border);
-  background: var(--c-surface); color: var(--c-muted);
-  cursor: pointer; font-family: var(--font); white-space: nowrap;
-  transition: all 0.15s;
-}
-.chip.active { background: var(--c-accent); color: #fff; border-color: var(--c-accent); box-shadow: 0 0 12px var(--c-accent-glow); }
+.chip { flex-shrink: 0; font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--c-border); background: var(--c-surface); color: var(--c-muted); cursor: pointer; font-family: var(--font); white-space: nowrap; transition: all 0.15s; box-shadow: 0 1px 2px rgba(15,17,23,0.04); }
+.chip.active { background: var(--c-accent); color: #fff; border-color: var(--c-accent); box-shadow: 0 2px 8px var(--c-accent-glow); }
 
-/* ── LIST ── */
+/* LIST */
 .list { padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
 .empty { text-align: center; padding: 56px 24px; color: var(--c-muted); }
 .empty-icon { font-size: 44px; margin-bottom: 12px; }
-.empty-text { font-size: 15px; font-weight: 500; margin-bottom: 6px; color: var(--c-text); }
+.empty-text { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--c-text); }
 .empty-sub { font-size: 13px; }
 
-/* ── CARD ── */
-.card {
-  background: var(--c-surface); border-radius: var(--r);
-  border: 1px solid var(--c-border); overflow: hidden;
-  box-shadow: 0 1px 4px rgba(15,17,23,0.05);
-  transition: transform 0.15s;
-}
+/* CARD */
+.card { background: var(--c-surface); border-radius: var(--r); border: 1px solid var(--c-border); overflow: hidden; box-shadow: 0 1px 4px rgba(15,17,23,0.05); transition: transform 0.15s; }
 .card:active { transform: scale(0.99); }
 .card.overdue { border-left: 3px solid var(--c-danger); }
 .card.today { border-left: 3px solid var(--c-warning); }
-.card-body { padding: 14px 16px; }
+.card-body { padding: 14px 16px 10px; }
 .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .card-left { flex: 1; min-width: 0; }
-.card-name { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; truncate: ellipsis; }
-.card-phone { font-size: 13px; color: var(--c-muted); margin-top: 3px; }
-.card-xe { font-size: 13px; color: var(--c-accent); margin-top: 2px; font-weight: 500; }
-.badge {
-  font-size: 11px; font-weight: 600; padding: 4px 10px;
-  border-radius: 20px; white-space: nowrap; flex-shrink: 0;
-  letter-spacing: 0.2px;
-}
-.b-moi { background: rgba(79,110,247,0.15); color: #818CF8; border: 1px solid rgba(79,110,247,0.2); }
-.b-xem { background: var(--c-warning-bg); color: var(--c-warning); border: 1px solid rgba(245,158,11,0.2); }
-.b-nghi { background: var(--c-purple-bg); color: var(--c-purple); border: 1px solid rgba(167,139,250,0.2); }
-.b-chot { background: var(--c-success-bg); color: var(--c-success); border: 1px solid rgba(34,197,94,0.2); }
-.b-khongcs { background: var(--c-danger-bg); color: var(--c-danger); border: 1px solid rgba(239,68,68,0.2); }
-.b-mat { background: var(--c-gray-bg); color: var(--c-muted); border: 1px solid var(--c-border); }
+.card-name { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
+.card-phone-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.phone-link { font-size: 14px; color: var(--c-accent); font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 4px 10px; background: rgba(79,110,247,0.08); border-radius: 20px; transition: background 0.15s; }
+.phone-link:active { background: rgba(79,110,247,0.18); }
+.card-xe { font-size: 13px; color: var(--c-muted); margin-top: 4px; font-weight: 500; }
+.call-count { font-size: 11px; color: var(--c-muted); background: var(--c-gray-bg); padding: 2px 8px; border-radius: 10px; }
+.badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+.b-moi{background:rgba(79,110,247,0.1);color:#4F6EF7;border:1px solid rgba(79,110,247,0.2)}
+.b-xem{background:var(--c-warning-bg);color:var(--c-warning);border:1px solid rgba(217,119,6,0.2)}
+.b-nghi{background:var(--c-purple-bg);color:var(--c-purple);border:1px solid rgba(139,92,246,0.2)}
+.b-chot{background:var(--c-success-bg);color:var(--c-success);border:1px solid rgba(22,163,74,0.2)}
+.b-khongcs{background:var(--c-danger-bg);color:var(--c-danger);border:1px solid rgba(220,38,38,0.2)}
+.b-mat{background:var(--c-gray-bg);color:var(--c-muted);border:1px solid var(--c-border)}
+.card-dates { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.date-tag { font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 3px; }
+.card-note { font-size: 13px; color: var(--c-muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--c-border); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 12px; gap: 8px; }
+.follow-tag { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.ft-overdue{color:var(--c-danger)} .ft-today{color:var(--c-warning)} .ft-ok{color:var(--c-muted);font-weight:400}
+.card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-icon { width: 32px; height: 32px; border-radius: var(--r-xs); border: 1px solid var(--c-border); background: var(--c-surface2); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.btn-icon:active { transform: scale(0.88); }
 
-.card-dates { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
-.date-tag { font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 4px; }
-.card-note {
-  font-size: 13px; color: var(--c-muted); margin-top: 10px;
-  padding-top: 10px; border-top: 1px solid var(--c-border);
-  line-height: 1.5; font-style: italic;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-.card-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 16px 12px;
-}
-.follow-tag { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-.ft-overdue { color: var(--c-danger); }
-.ft-today { color: var(--c-warning); }
-.ft-ok { color: var(--c-muted); font-weight: 400; }
-.card-actions { display: flex; gap: 8px; }
-.btn-icon {
-  width: 34px; height: 34px; border-radius: var(--r-xs);
-  border: 1px solid var(--c-border); background: var(--c-surface2);
-  font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.btn-icon:active { transform: scale(0.9); }
-.btn-edit { color: var(--c-accent); }
-.btn-del { color: var(--c-danger); }
-
-/* ── TAB BAR ── */
-.tabbar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(246,247,251,0.92);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid var(--c-border);
-  padding-bottom: var(--safe-bottom);
-  display: flex;
-}
-.tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 11px 0 6px; cursor: pointer; color: var(--c-muted); font-size: 10px; font-weight: 500; transition: color 0.15s; }
+/* TAB BAR */
+.tabbar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(246,247,251,0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--c-border); padding-bottom: var(--safe-bottom); display: flex; }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 0 5px; cursor: pointer; color: var(--c-muted); font-size: 10px; font-weight: 500; transition: color 0.15s; }
 .tab.active { color: var(--c-accent); }
-.tab-icon { font-size: 22px; line-height: 1; }
+.tab-icon { font-size: 21px; line-height: 1; }
 
-/* ── SHEET ── */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(4px); }
+/* OVERLAY & SHEET */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(3px); }
 .overlay.show { opacity: 1; pointer-events: all; }
-.sheet {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 210;
-  background: var(--c-surface); border-radius: 24px 24px 0 0;
-  padding-bottom: var(--safe-bottom);
-  transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.32,0.72,0,1);
-  max-height: 93vh; overflow-y: auto;
-  box-shadow: 0 -8px 40px rgba(15,17,23,0.12);
-}
+.sheet { position: fixed; bottom: 0; left: 0; right: 0; z-index: 210; background: var(--c-surface); border-radius: 24px 24px 0 0; padding-bottom: var(--safe-bottom); transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.32,0.72,0,1); max-height: 94vh; overflow-y: auto; box-shadow: 0 -8px 40px rgba(15,17,23,0.12); }
 .sheet.show { transform: translateY(0); }
 .sheet-handle { width: 40px; height: 4px; background: var(--c-border); border-radius: 2px; margin: 14px auto 0; }
 .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid var(--c-border); }
 .sheet-title { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
 .btn-close { width: 30px; height: 30px; border-radius: 50%; background: var(--c-surface2); border: none; color: var(--c-muted); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 .sheet-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 16px; }
-.field label { font-size: 12px; font-weight: 600; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 8px; }
-.field input, .field select, .field textarea {
-  width: 100%; padding: 13px 15px; font-size: 16px;
-  background: var(--c-bg); border: 1px solid var(--c-border);
-  border-radius: var(--r-sm); color: var(--c-text); font-family: var(--font);
-  -webkit-appearance: none; transition: border-color 0.2s;
-}
+.field label { font-size: 11px; font-weight: 700; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.7px; display: block; margin-bottom: 8px; }
+.field input, .field select, .field textarea { width: 100%; padding: 13px 15px; font-size: 16px; background: var(--c-bg); border: 1px solid var(--c-border); border-radius: var(--r-sm); color: var(--c-text); font-family: var(--font); -webkit-appearance: none; transition: border-color 0.2s; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--c-accent); }
-.field textarea { height: 80px; resize: none; line-height: 1.5; }
-.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.field textarea { height: 76px; resize: none; line-height: 1.5; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.btn-save {
-  background: var(--c-accent); color: #fff; border: none;
-  border-radius: var(--r-sm); padding: 16px; font-size: 16px; font-weight: 700;
-  width: 100%; cursor: pointer; font-family: var(--font);
-  box-shadow: 0 4px 20px var(--c-accent-glow);
-  transition: transform 0.1s, opacity 0.1s; letter-spacing: -0.2px;
-}
-.btn-save:active { transform: scale(0.98); opacity: 0.88; }
-
-/* ── STATUS QUICK SELECT ── */
 .status-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-.status-opt {
-  padding: 10px 6px; border-radius: var(--r-xs); border: 1px solid var(--c-border);
-  background: var(--c-bg); text-align: center; cursor: pointer;
-  font-size: 12px; font-weight: 500; color: var(--c-muted); font-family: var(--font);
-  transition: all 0.15s;
-}
-.status-opt.selected { border-color: var(--c-accent); background: rgba(79,110,247,0.1); color: var(--c-accent); }
+.status-opt { padding: 10px 6px; border-radius: var(--r-xs); border: 1px solid var(--c-border); background: var(--c-bg); text-align: center; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--c-muted); font-family: var(--font); transition: all 0.15s; }
+.status-opt.selected { border-color: var(--c-accent); background: rgba(79,110,247,0.08); color: var(--c-accent); }
 .status-opt-icon { font-size: 18px; margin-bottom: 4px; }
+.btn-save { background: var(--c-accent); color: #fff; border: none; border-radius: var(--r-sm); padding: 16px; font-size: 16px; font-weight: 700; width: 100%; cursor: pointer; font-family: var(--font); box-shadow: 0 4px 16px var(--c-accent-glow); transition: transform 0.1s; }
+.btn-save:active { transform: scale(0.98); }
 
-/* ── DELETE MODAL ── */
-.del-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+/* KỊCH BẢN SHEET */
+.script-list { display: flex; flex-direction: column; gap: 10px; }
+.script-card { background: var(--c-bg); border: 1px solid var(--c-border); border-radius: var(--r-sm); padding: 14px; cursor: pointer; transition: all 0.15s; }
+.script-card:active { background: rgba(79,110,247,0.05); border-color: var(--c-accent); }
+.script-tag { font-size: 11px; font-weight: 700; color: var(--c-accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.script-title { font-size: 14px; font-weight: 600; color: var(--c-text); margin-bottom: 6px; }
+.script-preview { font-size: 13px; color: var(--c-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.script-content { font-size: 14px; color: var(--c-text); line-height: 1.7; white-space: pre-wrap; background: var(--c-bg); border-radius: var(--r-sm); padding: 14px; border: 1px solid var(--c-border); margin-top: 10px; }
+.btn-copy { background: var(--c-success-bg); color: var(--c-success); border: 1px solid rgba(22,163,74,0.2); border-radius: var(--r-xs); padding: 10px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; font-family: var(--font); margin-top: 10px; }
+.btn-back { background: var(--c-gray-bg); color: var(--c-muted); border: 1px solid var(--c-border); border-radius: var(--r-xs); padding: 10px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; font-family: var(--font); margin-top: 8px; }
+
+/* BÁO CÁO */
+.report-section { margin-bottom: 20px; }
+.report-title { font-size: 13px; font-weight: 700; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+.report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.report-card { background: var(--c-bg); border: 1px solid var(--c-border); border-radius: var(--r-sm); padding: 14px; text-align: center; }
+.report-num { font-size: 26px; font-weight: 700; color: var(--c-accent); }
+.report-label { font-size: 12px; color: var(--c-muted); margin-top: 4px; line-height: 1.4; }
+.funnel { display: flex; flex-direction: column; gap: 6px; }
+.funnel-row { display: flex; align-items: center; gap: 10px; }
+.funnel-label { font-size: 13px; color: var(--c-text); width: 120px; flex-shrink: 0; font-weight: 500; }
+.funnel-bar-wrap { flex: 1; height: 8px; background: var(--c-gray-bg); border-radius: 4px; overflow: hidden; }
+.funnel-bar { height: 100%; border-radius: 4px; background: var(--c-accent); transition: width 0.5s ease; }
+.funnel-count { font-size: 13px; font-weight: 600; color: var(--c-text); width: 24px; text-align: right; flex-shrink: 0; }
+
+/* DELETE MODAL */
+.del-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
 .del-overlay.show { opacity: 1; pointer-events: all; }
-.del-modal {
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9);
-  z-index: 301; background: var(--c-surface); border-radius: 20px;
-  padding: 28px 24px; width: min(300px, 90vw); text-align: center;
-  border: 1px solid var(--c-border);
-  box-shadow: 0 20px 60px rgba(15,17,23,0.18);
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-}
+.del-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.9); z-index: 301; background: var(--c-surface); border-radius: 20px; padding: 28px 24px; width: min(300px,90vw); text-align: center; border: 1px solid var(--c-border); box-shadow: 0 20px 60px rgba(15,17,23,0.18); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
 .del-modal.show { opacity: 1; pointer-events: all; transform: translate(-50%,-50%) scale(1); }
 .del-icon { font-size: 40px; margin-bottom: 12px; }
 .del-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
@@ -267,14 +182,8 @@ body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); 
 .btn-cancel { padding: 13px; border-radius: var(--r-xs); border: 1px solid var(--c-border); background: var(--c-surface2); color: var(--c-text); font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font); }
 .btn-confirm-del { padding: 13px; border-radius: var(--r-xs); border: none; background: var(--c-danger); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: var(--font); }
 
-/* ── TOAST ── */
-.toast {
-  position: fixed; bottom: calc(var(--safe-bottom) + 80px); left: 50%; transform: translateX(-50%) translateY(20px);
-  background: var(--c-text); color: var(--c-surface); border: 1px solid var(--c-border);
-  border-radius: 22px; padding: 10px 20px; font-size: 14px; font-weight: 500;
-  white-space: nowrap; z-index: 400; opacity: 0; transition: all 0.3s;
-  pointer-events: none; box-shadow: 0 8px 30px rgba(15,17,23,0.2);
-}
+/* TOAST */
+.toast { position: fixed; bottom: calc(var(--safe-bottom) + 80px); left: 50%; transform: translateX(-50%) translateY(20px); background: var(--c-text); color: #fff; border-radius: 22px; padding: 10px 20px; font-size: 14px; font-weight: 500; white-space: nowrap; z-index: 400; opacity: 0; transition: all 0.3s; pointer-events: none; box-shadow: 0 6px 24px rgba(15,17,23,0.2); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
@@ -286,23 +195,22 @@ body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); 
   <div class="loader-text">Đang kết nối Firebase...</div>
 </div>
 
+<!-- NAVBAR -->
 <div class="navbar">
   <div class="navbar-inner">
     <div class="nav-brand">
       <div class="nav-logo">🚗</div>
       <div>
         <div class="nav-title">Bcar CRM</div>
-        <div class="nav-sub">
-          <span class="sync-dot" id="syncDot"></span>
-          <span id="syncStatus">Đang kết nối...</span>
-        </div>
+        <div class="nav-sub"><span class="sync-dot" id="syncDot"></span><span id="syncStatus">Đang kết nối...</span></div>
       </div>
     </div>
     <button class="btn-add-nav" onclick="openSheet()">+ Thêm</button>
   </div>
 </div>
 
-<div class="main">
+<!-- MAIN -->
+<div class="main" id="mainView">
   <div class="stats-wrap" id="stats"></div>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
@@ -312,10 +220,23 @@ body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); 
   <div class="list" id="list"></div>
 </div>
 
+<!-- BÁO CÁO VIEW -->
+<div class="main" id="reportView" style="display:none; padding:14px 16px;">
+  <div id="reportContent"></div>
+</div>
+
+<!-- KỊCH BẢN VIEW -->
+<div class="main" id="scriptView" style="display:none; padding:14px 16px;">
+  <div id="scriptContent"></div>
+</div>
+
+<!-- TAB BAR -->
 <div class="tabbar">
-  <div class="tab active" onclick="setTab('all')"><div class="tab-icon">👥</div><div>Tất cả</div></div>
+  <div class="tab active" onclick="setTab('all')"><div class="tab-icon">👥</div><div>Khách</div></div>
   <div class="tab" onclick="setTab('follow')"><div class="tab-icon">🔔</div><div>Follow</div></div>
   <div class="tab" onclick="setTab('chot')"><div class="tab-icon">✅</div><div>Đã chốt</div></div>
+  <div class="tab" onclick="setTab('script')"><div class="tab-icon">📋</div><div>Kịch bản</div></div>
+  <div class="tab" onclick="setTab('report')"><div class="tab-icon">📊</div><div>Báo cáo</div></div>
 </div>
 
 <!-- SHEET FORM -->
@@ -328,44 +249,15 @@ body { font-family: var(--font); background: var(--c-bg); color: var(--c-text); 
   </div>
   <div class="sheet-body">
     <input type="hidden" id="f-id">
-
-    <div class="field">
-      <label>Tên khách *</label>
-      <input id="f-ten" type="text" placeholder="Nguyễn Văn A">
-    </div>
-
-    <div class="field">
-      <label>Số điện thoại *</label>
-      <input id="f-sdt" type="tel" placeholder="0912 345 678">
-    </div>
-
-    <div class="field">
-      <label>Xe quan tâm</label>
-      <input id="f-xe" type="text" placeholder="Everest Titanium 2025">
-    </div>
-
-    <div class="field">
-      <label>Trạng thái</label>
-      <div class="status-grid" id="statusGrid"></div>
-      <input type="hidden" id="f-tt" value="moi">
-    </div>
-
+    <div class="field"><label>Tên khách *</label><input id="f-ten" type="text" placeholder="Nguyễn Văn A"></div>
+    <div class="field"><label>Số điện thoại *</label><input id="f-sdt" type="tel" placeholder="0912 345 678"></div>
+    <div class="field"><label>Xe quan tâm</label><input id="f-xe" type="text" placeholder="Everest Titanium 2025"></div>
+    <div class="field"><label>Trạng thái</label><div class="status-grid" id="statusGrid"></div><input type="hidden" id="f-tt" value="moi"></div>
     <div class="field-row">
-      <div class="field">
-        <label>Ngày tiếp cận</label>
-        <input id="f-tiepcan" type="date">
-      </div>
-      <div class="field">
-        <label>Ngày follow-up</label>
-        <input id="f-date" type="date">
-      </div>
+      <div class="field"><label>Ngày tiếp cận</label><input id="f-tiepcan" type="date"></div>
+      <div class="field"><label>Ngày follow-up</label><input id="f-date" type="date"></div>
     </div>
-
-    <div class="field">
-      <label>Ghi chú</label>
-      <textarea id="f-note" placeholder="Khách thích màu xám, ngân sách 1.2 tỷ..."></textarea>
-    </div>
-
+    <div class="field"><label>Ghi chú</label><textarea id="f-note" placeholder="Ngân sách 1.2 tỷ, thích màu xám..."></textarea></div>
     <button class="btn-save" onclick="saveKhach()">💾 Lưu khách hàng</button>
   </div>
 </div>
@@ -400,14 +292,99 @@ const db = getFirestore(app);
 const col = collection(db, 'khachhang');
 
 const STATUSES = [
-  { val:'moi',     icon:'🔵', label:'Mới hỏi',        badge:'b-moi' },
-  { val:'xem',     icon:'🟡', label:'Đã xem xe',       badge:'b-xem' },
-  { val:'nghi',    icon:'🟣', label:'Đang suy nghĩ',   badge:'b-nghi' },
-  { val:'chot',    icon:'🟢', label:'Đã chốt',         badge:'b-chot' },
-  { val:'khongcs', icon:'🔴', label:'Không chăm sóc',  badge:'b-khongcs' },
-  { val:'mat',     icon:'⚫', label:'Mất khách',       badge:'b-mat' }
+  {val:'moi',     icon:'🔵', label:'Mới hỏi',       badge:'b-moi'},
+  {val:'xem',     icon:'🟡', label:'Đã xem xe',      badge:'b-xem'},
+  {val:'nghi',    icon:'🟣', label:'Đang suy nghĩ',  badge:'b-nghi'},
+  {val:'chot',    icon:'🟢', label:'Đã chốt',        badge:'b-chot'},
+  {val:'khongcs', icon:'🔴', label:'Không chăm sóc', badge:'b-khongcs'},
+  {val:'mat',     icon:'⚫', label:'Mất khách',      badge:'b-mat'}
 ];
-const ST = Object.fromEntries(STATUSES.map(s => [s.val, s]));
+const ST = Object.fromEntries(STATUSES.map(s=>[s.val,s]));
+
+const SCRIPTS = [
+  {
+    tag: 'Cuộc gọi đầu tiên',
+    title: 'Tiếp cận khách mới hỏi',
+    preview: 'Chào anh/chị, em là Phong từ Bcar Hà Nội...',
+    content: `Chào anh/chị [TÊN], em là Phong từ Bcar Hà Nội ạ.
+
+Em thấy anh/chị đang quan tâm đến [TÊN XE], em gọi để tư vấn thêm cho mình ạ.
+
+✅ Hiện tại bên em đang có xe [TÊN XE] [NĂM], ODO [KM], tình trạng rất đẹp.
+
+Em muốn hỏi thêm một chút:
+→ Anh/chị dự định sử dụng xe cho mục đích gì ạ? (gia đình / công việc)
+→ Mình đang cân nhắc ngân sách khoảng bao nhiêu ạ?
+→ Anh/chị có thể ra xem xe trực tiếp không ạ?
+
+Em sẵn sàng đặt lịch xem xe bất cứ lúc nào thuận tiện cho anh/chị ạ.`
+  },
+  {
+    tag: 'Follow-up',
+    title: 'Nhắc khách đã xem xe',
+    preview: 'Dạ em Phong Bcar đây ạ, hôm trước anh/chị có ghé xem...',
+    content: `Dạ em Phong Bcar đây ạ. Hôm trước anh/chị có ghé xem [TÊN XE] bên em.
+
+Em gọi để hỏi thăm anh/chị cân nhắc đến đâu rồi ạ?
+
+Nếu anh/chị còn băn khoăn điều gì:
+→ Về giá: em có thể hỗ trợ thêm nếu anh/chị quyết định trong tuần này
+→ Về xe: anh/chị có thể lái thử thêm lần nữa nếu muốn
+→ Về hồ sơ: em lo toàn bộ, anh/chị chỉ cần ký
+
+Anh/chị muốn em tư vấn thêm phần nào không ạ?`
+  },
+  {
+    tag: 'Chốt sale',
+    title: 'Khách đang do dự — chốt ngay',
+    preview: 'Dạ anh/chị ơi, em hiểu mình cần thêm thời gian...',
+    content: `Dạ anh/chị ơi, em hiểu mình cần thêm thời gian để quyết định.
+
+Nhưng em muốn chia sẻ thật với anh/chị:
+
+→ Chiếc [TÊN XE] này đang được nhiều người hỏi
+→ Giá hiện tại là tốt nhất trong thời điểm này
+→ Nếu anh/chị quyết định hôm nay, em có thể hỗ trợ [ƯU ĐÃI]
+
+Thật ra anh/chị còn băn khoăn điều gì nữa không ạ?
+Em muốn giải đáp hết trước khi mình quyết định.
+
+Anh/chị thấy sao ạ? 🙂`
+  },
+  {
+    tag: 'Xử lý từ chối',
+    title: 'Khách nói "để suy nghĩ thêm"',
+    preview: 'Dạ vâng ạ, em hoàn toàn hiểu anh/chị cần thêm thời gian...',
+    content: `Dạ vâng ạ, em hoàn toàn hiểu anh/chị cần thêm thời gian.
+
+Cho em hỏi thêm một chút ạ:
+
+Anh/chị đang cân nhắc về:
+A. Giá cả — em có thể xem lại mức hỗ trợ tốt hơn
+B. Tình trạng xe — em có thể cho kiểm định độc lập
+C. So sánh xe khác — em có thể tư vấn thêm
+
+Hay có điều gì khác khiến anh/chị chưa yên tâm ạ?
+
+Em muốn chắc chắn anh/chị có đầy đủ thông tin nhất trước khi quyết định ạ.`
+  },
+  {
+    tag: 'Giới thiệu',
+    title: 'Xin referral từ khách đã mua',
+    preview: 'Chào anh/chị [TÊN], em Phong Bcar đây ạ...',
+    content: `Chào anh/chị [TÊN], em Phong Bcar đây ạ.
+
+Anh/chị đang dùng xe có ổn không ạ? Hy vọng xe phục vụ tốt cho gia đình mình.
+
+Em muốn nhờ anh/chị một việc nhỏ ạ:
+
+Nếu trong số bạn bè, đồng nghiệp của anh/chị có ai đang tìm xe, anh/chị có thể giới thiệu em không ạ?
+
+Bên em sẽ có ưu đãi đặc biệt cho khách được giới thiệu ạ.
+
+Cảm ơn anh/chị rất nhiều! Chúc anh/chị và gia đình nhiều sức khoẻ ạ. 🙏`
+  }
+];
 
 let data=[], filter='all', searchQ='', activeTab='all', pendingDelId=null, currentTT='moi';
 
@@ -427,57 +404,62 @@ function showToast(msg) {
   setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// Realtime listener
-onSnapshot(query(col, orderBy('ts','desc')), snap => {
-  data = snap.docs.map(d=>({id:d.id,...d.data()}));
+onSnapshot(query(col,orderBy('ts','desc')), snap=>{
+  data=snap.docs.map(d=>({id:d.id,...d.data()}));
   document.getElementById('loadingScreen').style.display='none';
   setSyncStatus('online'); render();
-}, err => {
-  console.error(err);
-  setSyncStatus('offline');
+}, err=>{
+  console.error(err); setSyncStatus('offline');
   document.getElementById('loadingScreen').style.display='none';
 });
 
-// ── SHEET ──
-function renderStatusGrid(selected) {
-  document.getElementById('statusGrid').innerHTML = STATUSES.map(s =>
-    `<div class="status-opt${selected===s.val?' selected':''}" onclick="selectStatus('${s.val}')">
-      <div class="status-opt-icon">${s.icon}</div>
-      <div>${s.label}</div>
+// TABS
+window.setTab = function(t) {
+  activeTab=t; filter='all'; searchQ='';
+  document.querySelectorAll('.tab').forEach((el,i)=>{
+    el.classList.toggle('active',['all','follow','chot','script','report'][i]===t);
+  });
+  document.getElementById('mainView').style.display = ['all','follow','chot'].includes(t)?'block':'none';
+  document.getElementById('reportView').style.display = t==='report'?'block':'none';
+  document.getElementById('scriptView').style.display = t==='script'?'block':'none';
+  if(t==='report') renderReport();
+  else if(t==='script') renderScripts();
+  else render();
+}
+
+// SHEET
+function renderStatusGrid(sel) {
+  document.getElementById('statusGrid').innerHTML = STATUSES.map(s=>
+    `<div class="status-opt${sel===s.val?' selected':''}" onclick="selectStatus('${s.val}')">
+      <div class="status-opt-icon">${s.icon}</div><div>${s.label}</div>
     </div>`
   ).join('');
 }
 
 window.selectStatus = function(val) {
-  currentTT = val;
-  document.getElementById('f-tt').value = val;
-  renderStatusGrid(val);
+  currentTT=val; document.getElementById('f-tt').value=val; renderStatusGrid(val);
 }
 
 window.openSheet = function(id) {
   if(id) {
-    const k = data.find(d=>d.id===id);
-    document.getElementById('sheetTitle').textContent = 'Sửa khách hàng';
-    document.getElementById('f-id').value = id;
-    document.getElementById('f-ten').value = k.ten||'';
-    document.getElementById('f-sdt').value = k.sdt||'';
-    document.getElementById('f-xe').value = k.xe||'';
-    document.getElementById('f-tiepcan').value = k.tiepcan||'';
-    document.getElementById('f-date').value = k.date||'';
-    document.getElementById('f-note').value = k.note||'';
-    currentTT = k.tt||'moi';
+    const k=data.find(d=>d.id===id);
+    document.getElementById('sheetTitle').textContent='Sửa khách hàng';
+    document.getElementById('f-id').value=id;
+    document.getElementById('f-ten').value=k.ten||'';
+    document.getElementById('f-sdt').value=k.sdt||'';
+    document.getElementById('f-xe').value=k.xe||'';
+    document.getElementById('f-tiepcan').value=k.tiepcan||'';
+    document.getElementById('f-date').value=k.date||'';
+    document.getElementById('f-note').value=k.note||'';
+    currentTT=k.tt||'moi';
   } else {
-    document.getElementById('sheetTitle').textContent = 'Thêm khách hàng';
-    document.getElementById('f-id').value='';
-    document.getElementById('f-ten').value='';
-    document.getElementById('f-sdt').value='';
-    document.getElementById('f-xe').value='';
+    document.getElementById('sheetTitle').textContent='Thêm khách hàng';
+    ['f-id','f-ten','f-sdt','f-xe','f-note'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('f-tiepcan').value=today();
     document.getElementById('f-date').value='';
-    document.getElementById('f-note').value='';
     currentTT='moi';
   }
-  document.getElementById('f-tt').value = currentTT;
+  document.getElementById('f-tt').value=currentTT;
   renderStatusGrid(currentTT);
   document.getElementById('overlay').classList.add('show');
   document.getElementById('sheet').classList.add('show');
@@ -497,12 +479,12 @@ window.saveKhach = async function() {
   const obj={ten,sdt,xe:document.getElementById('f-xe').value.trim(),tt:document.getElementById('f-tt').value,tiepcan:document.getElementById('f-tiepcan').value,date:document.getElementById('f-date').value,note:document.getElementById('f-note').value.trim(),ts:Date.now()};
   setSyncStatus('syncing'); closeSheet();
   try {
-    if(id) { await updateDoc(doc(db,'khachhang',id),obj); showToast('✅ Đã cập nhật'); }
-    else { await addDoc(col,obj); showToast('✅ Đã thêm khách hàng'); }
-  } catch(e) { showToast('❌ Lỗi: '+e.message); setSyncStatus('offline'); }
+    if(id){await updateDoc(doc(db,'khachhang',id),obj);showToast('✅ Đã cập nhật');}
+    else{await addDoc(col,obj);showToast('✅ Đã thêm khách hàng');}
+  } catch(e){showToast('❌ Lỗi: '+e.message);setSyncStatus('offline');}
 }
 
-// ── DELETE ──
+// DELETE
 window.deleteKhach = function(id) {
   const k=data.find(d=>d.id===id); if(!k) return;
   pendingDelId=id;
@@ -511,10 +493,10 @@ window.deleteKhach = function(id) {
   document.getElementById('delModal').classList.add('show');
 }
 window.confirmDelete = async function() {
-  if(pendingDelId) {
+  if(pendingDelId){
     setSyncStatus('syncing');
-    try { await deleteDoc(doc(db,'khachhang',pendingDelId)); showToast('🗑️ Đã xoá khách hàng'); }
-    catch(e) { showToast('❌ Lỗi xoá'); setSyncStatus('offline'); }
+    try{await deleteDoc(doc(db,'khachhang',pendingDelId));showToast('🗑️ Đã xoá');}
+    catch(e){showToast('❌ Lỗi xoá');setSyncStatus('offline');}
   }
   cancelDelete();
 }
@@ -524,20 +506,13 @@ window.cancelDelete = function() {
   document.getElementById('delModal').classList.remove('show');
 }
 
-// ── FILTER / SEARCH / TAB ──
+// SEARCH / FILTER
 window.onSearch = q => { searchQ=q.toLowerCase(); render(); }
 window.setFilter = f => { filter=f; render(); }
-window.setTab = function(t) {
-  activeTab=t; filter='all'; searchQ='';
-  document.querySelectorAll('.tab').forEach((el,i)=>{
-    el.classList.toggle('active',['all','follow','chot'][i]===t);
-  });
-  render();
-}
 
+// RENDER KHÁCH
 function getDS(d) {
-  if(!d) return null;
-  const t=today();
+  if(!d) return null; const t=today();
   return d<t?'overdue':d===t?'today':'ok';
 }
 
@@ -548,14 +523,14 @@ function renderStats() {
   const ac=data.filter(k=>!['chot','mat','khongcs'].includes(k.tt)).length;
   const ch=data.filter(k=>k.tt==='chot').length;
   document.getElementById('stats').innerHTML=`
-    <div class="stat red"><div class="stat-num red">${od}</div><div class="stat-label">Trễ hạn</div></div>
-    <div class="stat yellow"><div class="stat-num yellow">${ht}</div><div class="stat-label">Hôm nay</div></div>
+    <div class="stat red" onclick="setFilter('all');setTab('follow')"><div class="stat-num red">${od}</div><div class="stat-label">Trễ hạn</div></div>
+    <div class="stat yellow" onclick="setFilter('all');setTab('follow')"><div class="stat-num yellow">${ht}</div><div class="stat-label">Hôm nay</div></div>
     <div class="stat blue"><div class="stat-num blue">${ac}</div><div class="stat-label">Đang xử lý</div></div>
-    <div class="stat green"><div class="stat-num green">${ch}</div><div class="stat-label">Đã chốt</div></div>`;
+    <div class="stat green" onclick="setFilter('chot');setTab('all')"><div class="stat-num green">${ch}</div><div class="stat-label">Đã chốt</div></div>`;
 }
 
 function renderFilters() {
-  if(activeTab!=='all'){document.getElementById('filters').innerHTML='';return;}
+  if(!['all','follow','chot'].includes(activeTab)){document.getElementById('filters').innerHTML='';return;}
   const chips=[['all','Tất cả'],['moi','Mới hỏi'],['xem','Đã xem xe'],['nghi','Đang suy nghĩ'],['khongcs','Không chăm sóc'],['mat','Mất khách']];
   document.getElementById('filters').innerHTML=chips.map(([v,l])=>
     `<div class="chip${filter===v?' active':''}" onclick="setFilter('${v}')">${l}</div>`
@@ -571,6 +546,7 @@ function render() {
   else if(filter!=='all') list=list.filter(k=>k.tt===filter);
   if(searchQ) list=list.filter(k=>(k.ten+k.sdt+k.xe+k.note).toLowerCase().includes(searchQ));
   list.sort((a,b)=>b.ts-a.ts);
+
   if(!list.length){
     document.getElementById('list').innerHTML=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Chưa có khách hàng</div><div class="empty-sub">Bấm "+ Thêm" để bắt đầu</div></div>`;
     return;
@@ -579,38 +555,137 @@ function render() {
     const ds=getDS(k.date);
     const st=ST[k.tt]||ST['moi'];
     const cls='card'+(ds==='overdue'?' overdue':ds==='today'?' today':'');
-    const follow=ds==='overdue'
-      ?`<span class="follow-tag ft-overdue">⚠️ Trễ ${fmt(k.date)}</span>`
-      :ds==='today'
-      ?`<span class="follow-tag ft-today">🔔 Follow hôm nay</span>`
-      :k.date
-      ?`<span class="follow-tag ft-ok">📅 ${fmt(k.date)}</span>`
-      :`<span></span>`;
+    const follow=ds==='overdue'?`<span class="follow-tag ft-overdue">⚠️ Trễ ${fmt(k.date)}</span>`:ds==='today'?`<span class="follow-tag ft-today">🔔 Follow hôm nay</span>`:k.date?`<span class="follow-tag ft-ok">📅 ${fmt(k.date)}</span>`:`<span></span>`;
     return `<div class="${cls}">
       <div class="card-body">
         <div class="card-top">
           <div class="card-left">
             <div class="card-name">${k.ten}</div>
-            <div class="card-phone">📞 ${k.sdt}</div>
+            <div class="card-phone-row">
+              <a class="phone-link" href="tel:${k.sdt.replace(/\s/g,'')}">📞 ${k.sdt}</a>
+            </div>
             ${k.xe?`<div class="card-xe">🚗 ${k.xe}</div>`:''}
           </div>
           <span class="badge ${st.badge}">${st.icon} ${st.label}</span>
         </div>
         <div class="card-dates">
-          ${k.tiepcan?`<span class="date-tag">📌 ${fmt(k.tiepcan)}</span>`:''}
-          ${k.date?`<span class="date-tag">🔔 ${fmt(k.date)}</span>`:''}
+          ${k.tiepcan?`<span class="date-tag">📌 TC: ${fmt(k.tiepcan)}</span>`:''}
+          ${k.date?`<span class="date-tag">🔔 FU: ${fmt(k.date)}</span>`:''}
         </div>
         ${k.note?`<div class="card-note">${k.note}</div>`:''}
       </div>
       <div class="card-footer">
         ${follow}
         <div class="card-actions">
-          <button class="btn-icon btn-edit" onclick="openSheet('${k.id}')">✏️</button>
-          <button class="btn-icon btn-del" onclick="deleteKhach('${k.id}')">🗑️</button>
+          <button class="btn-icon" onclick="openSheet('${k.id}')" style="color:var(--c-accent)" title="Sửa">✏️</button>
+          <button class="btn-icon" onclick="deleteKhach('${k.id}')" style="color:var(--c-danger)" title="Xoá">🗑️</button>
         </div>
       </div>
     </div>`;
   }).join('');
+}
+
+// BÁO CÁO
+function renderReport() {
+  const t=today();
+  const total=data.length;
+  const active=data.filter(k=>!['chot','mat','khongcs'].includes(k.tt)).length;
+  const chot=data.filter(k=>k.tt==='chot').length;
+  const mat=data.filter(k=>k.tt==='mat').length;
+  const khongcs=data.filter(k=>k.tt==='khongcs').length;
+  const rate=total>0?Math.round(chot/total*100):0;
+  const overdue=data.filter(k=>k.date&&k.date<t&&!['chot','mat','khongcs'].includes(k.tt)).length;
+
+  const stages=[
+    {label:'Mới hỏi',     count:data.filter(k=>k.tt==='moi').length,    color:'#4F6EF7'},
+    {label:'Đã xem xe',   count:data.filter(k=>k.tt==='xem').length,    color:'#D97706'},
+    {label:'Đang suy nghĩ',count:data.filter(k=>k.tt==='nghi').length,   color:'#8B5CF6'},
+    {label:'Đã chốt',     count:chot,                                     color:'#16A34A'},
+    {label:'Mất khách',   count:mat,                                      color:'#DC2626'},
+  ];
+  const maxCount=Math.max(...stages.map(s=>s.count),1);
+
+  document.getElementById('reportContent').innerHTML=`
+    <div class="report-section">
+      <div class="report-title">📊 Tổng quan</div>
+      <div class="report-grid">
+        <div class="report-card"><div class="report-num" style="color:var(--c-accent)">${total}</div><div class="report-label">Tổng khách hàng</div></div>
+        <div class="report-card"><div class="report-num" style="color:var(--c-success)">${chot}</div><div class="report-label">Đã chốt thành công</div></div>
+        <div class="report-card"><div class="report-num" style="color:var(--c-warning)">${active}</div><div class="report-label">Đang xử lý</div></div>
+        <div class="report-card"><div class="report-num" style="color:var(--c-accent)">${rate}%</div><div class="report-label">Tỷ lệ chốt</div></div>
+        <div class="report-card"><div class="report-num" style="color:var(--c-danger)">${overdue}</div><div class="report-label">Trễ follow-up</div></div>
+        <div class="report-card"><div class="report-num" style="color:var(--c-muted)">${mat}</div><div class="report-label">Mất khách</div></div>
+      </div>
+    </div>
+    <div class="report-section">
+      <div class="report-title">🔄 Phễu bán hàng</div>
+      <div class="funnel">
+        ${stages.map(s=>`
+          <div class="funnel-row">
+            <div class="funnel-label">${s.label}</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${Math.round(s.count/maxCount*100)}%;background:${s.color}"></div></div>
+            <div class="funnel-count">${s.count}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="report-section">
+      <div class="report-title">🚗 Xe được quan tâm nhiều nhất</div>
+      <div class="funnel">
+        ${getTopXe().map(([xe,count])=>`
+          <div class="funnel-row">
+            <div class="funnel-label" style="font-size:12px">${xe||'Chưa rõ'}</div>
+            <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:${Math.round(count/data.length*100)}%"></div></div>
+            <div class="funnel-count">${count}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function getTopXe() {
+  const map={};
+  data.forEach(k=>{ const xe=k.xe||'Chưa rõ'; map[xe]=(map[xe]||0)+1; });
+  return Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,5);
+}
+
+// KỊCH BẢN
+function renderScripts(detail=null) {
+  if(detail!==null) {
+    const s=SCRIPTS[detail];
+    document.getElementById('scriptContent').innerHTML=`
+      <div style="margin-bottom:12px">
+        <button class="btn-back" onclick="renderScripts()">← Quay lại danh sách</button>
+      </div>
+      <div class="script-tag">${s.tag}</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:12px">${s.title}</div>
+      <div class="script-content">${s.content}</div>
+      <button class="btn-copy" onclick="copyScript(${detail})">📋 Sao chép kịch bản</button>`;
+    return;
+  }
+  document.getElementById('scriptContent').innerHTML=`
+    <div style="font-size:18px;font-weight:700;margin-bottom:4px">📋 Kịch bản telesale</div>
+    <div style="font-size:13px;color:var(--c-muted);margin-bottom:16px">Bấm để xem và sao chép</div>
+    <div class="script-list">
+      ${SCRIPTS.map((s,i)=>`
+        <div class="script-card" onclick="renderScripts(${i})">
+          <div class="script-tag">${s.tag}</div>
+          <div class="script-title">${s.title}</div>
+          <div class="script-preview">${s.preview}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+window.renderScripts = renderScripts;
+
+window.copyScript = function(i) {
+  const text=SCRIPTS[i].content;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>showToast('📋 Đã sao chép kịch bản'));
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('📋 Đã sao chép kịch bản');
+  }
 }
 </script>
 </body>
